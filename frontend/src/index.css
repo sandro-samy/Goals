@@ -51,15 +51,19 @@ h3 {
   border-bottom: 1px solid #e6e6e6;
   margin-bottom: 60px;
 }
+.header h2 {
+  line-height: 0px;
+}
 
 .header ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .header ul li {
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .header ul li a {
@@ -72,16 +76,20 @@ h3 {
 }
 
 .header ul li a svg {
-  margin-right: 5px;
+  /* margin-right: 5px; */
+  margin: 0;
 }
 
 .heading {
-  font-size: 2rem;
+  /* font-size: 1rem; */
   font-weight: 700;
   margin-bottom: 50px;
   padding: 0 20px;
 }
 
+.header h1 {
+  font-size: 2rem;
+}
 .heading p {
   color: #828282;
 }
@@ -162,9 +170,13 @@ h3 {
   width: auto;
   margin: auto;
 }
+.btn[disabled] {
+  background: #999;
+  border: 1px solid #999;
+}
 
 .btn svg {
-  margin-right: 8px;
+  /* margin-right: 8px; */
 }
 
 .btn-reverse {
@@ -179,6 +191,9 @@ h3 {
 
 .btn:hover {
   transform: scale(0.98);
+}
+.btn-logout {
+  padding: 5px 10px;
 }
 
 .loadingSpinnerContainer {
@@ -205,7 +220,35 @@ h3 {
 .mb-5 {
   margin-bottom: 1.25rem;
 }
-
+.mr-2 {
+  margin-right: 0.5rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.link {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+.addGoalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 100%;
+  gap: 0.5rem;
+}
+.addGoalContainer:first-child {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+}
+.addGoalContainer:first-child input {
+  margin: 0;
+  width: 60vw;
+  max-width: 300px;
+  /* padding-top: 12px; */
+  /* padding-bottom: 12px; */
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -226,5 +269,15 @@ h3 {
 
   .heading p {
     font-size: 1.5rem;
+  }
+  .header ul {
+    gap: 0.5rem;
+  }
+  .addGoalContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .addGoalContainer:first-child input {
+    width: 85vw;
   }
 }

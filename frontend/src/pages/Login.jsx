@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { reset, register } from "../store/authSlice";
+import { reset, login } from "../store/authSlice";
 import Spinner from "../components/loader/Spinner";
 
-const Register = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    comfirmPassword: "",
   });
-  const { name, email, password, comfirmPassword } = formData;
+  const [isValidInputs, setIsValidInputs] = useState(false);
+
+  const { email, password } = formData;
+
+  useEffect(() => {
+    if (email.includes("@") && email.includes(".") && password.length > 5) {
+      setIsValidInputs(true);
+    }
+  }, [email, password, setIsValidInputs]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +33,7 @@ const Register = () => {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user.email) {
+    if (user && user?.email) {
       navigate("/");
     }
     dispatch(reset());
@@ -41,37 +47,28 @@ const Register = () => {
       };
     });
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (password !== comfirmPassword) {
-      toast.error("password does not match!");
-      return;
+    if ((email, password)) {
+      dispatch(login({ email, password }));
     }
-
-    dispatch(register({ name, email, password }));
   };
+
   if (isLoading) {
     return <Spinner />;
   }
   return (
-    <section>
+    <section >
       <h1>
-        <FaUser /> Register
+        <FaSignInAlt /> Login
       </h1>
-      <p className="mb-5">Create new account</p>
-      <form onSubmit={submitHandler} className="form-container">
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={name}
-            placeholder="please enter your name"
-            onChange={changeHandler}
-          />
-        </div>
+      <p className="mb-5">Login and Create your Goals</p>
+      <form
+        onSubmit={submitHandler}
+        className="form-container"
+        disabled={!isValidInputs}
+      >
         <div className="form-group">
           <input
             type="email"
@@ -92,30 +89,23 @@ const Register = () => {
             value={password}
             placeholder="Please enter your password"
             onChange={changeHandler}
+            min={6}
           />
         </div>
         <div className="form-group">
-          <input
-            type="password"
-            className="form-control"
-            id="comfirmPassword"
-            name="comfirmPassword"
-            value={comfirmPassword}
-            placeholder="Please comfirm Password"
-            onChange={changeHandler}
-          />
-        </div>
-        <div className="form-group">
-          <button type="submit" className="btn">
+          <button type="submit" className="btn mb-5" disabled={!isValidInputs}>
             Submit
           </button>
         </div>
         <p>
-          Already have account? <Link to={"/login"}>login</Link>
+          Don't have account?{" "}
+          <Link to={"/register"} className="link">
+            register
+          </Link>
         </p>
       </form>
     </section>
   );
 };
 
-export default Register;
+export default Login;

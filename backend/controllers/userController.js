@@ -50,10 +50,13 @@ export const registerUser = asyncHandler(async (req, res) => {
 // @desc   user login
 // @route  POST /api/user/login
 // @access public
+
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (await bcrypt.compare(password, user.password)) {
+
+
+  if (user &&  await bcrypt.compare(password, user.password)) {
     res.status(200).json({
       _id: user.id,
       name: user.name,
@@ -70,10 +73,8 @@ export const loginUser = asyncHandler(async (req, res) => {
 // @route  GET /api/user/me
 // @access private
 export const getMe = (req, res) => {
-  const { id, name, email } = req.user;
-
-  res.status(200).json({ id, name, email });
+  res.status(200).json({ ...req.user });
 };
 
 const generateToken = (id) =>
-  jwt.sign(id, process.env.JWT_SECRET, { expiresIn: "30d" });
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
