@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import User from "../model/userModel.js";
 
-
 // @desc   create new user
 // @route  POST /api/user
 // @access public
@@ -24,8 +23,9 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Hash Password
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(password, salt);
+  // const salt = await bcrypt.genSalt(10);
+  // const hashPassword = await bcrypt.hash(password, salt);
+  const hashPassword = bcrypt.hashSync(password);
 
   // Create User
   const user = await User.create({
@@ -35,14 +35,12 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
   // check unexpected errors
   if (user) {
-    res
-      .status(201)
-      .json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
-      });
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
@@ -72,11 +70,10 @@ export const loginUser = asyncHandler(async (req, res) => {
 // @route  GET /api/user/me
 // @access private
 export const getMe = (req, res) => {
-  const {id, name, email } = req.user
-  
-  res.status(200).json({id,name,email });
+  const { id, name, email } = req.user;
+
+  res.status(200).json({ id, name, email });
 };
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-};
+const generateToken = (id) =>
+  jwt.sign(id, process.env.JWT_SECRET, { expiresIn: "30d" });
