@@ -7,7 +7,7 @@ import { getGoals, reset } from "../store/goalsSlice";
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
-  const { goals, isLoading, isSuccess, isError, message } = useSelector(
+  const { goals, isLoading, isError, message } = useSelector(
     (state) => state.goals
   );
 
@@ -21,7 +21,7 @@ const Dashboard = () => {
     return () => {
       dispatch(reset());
     };
-  }, []);
+  }, [isError, message, dispatch]);
 
   if (isLoading) {
     return <Spinner />;

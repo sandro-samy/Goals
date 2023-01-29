@@ -2,6 +2,7 @@ import { response } from "express";
 import asyncHandler from "express-async-handler";
 import Goal from "../model/goalModel.js";
 import User from "../model/userModel.js";
+
 // @desc   Get goals
 // @route  Get /api/goals
 // @access Private

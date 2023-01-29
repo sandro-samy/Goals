@@ -37,7 +37,7 @@ const Login = () => {
       navigate("/");
     }
     dispatch(reset());
-  }, [user, isLoading, isSuccess, isError, message, navigator, dispatch]);
+  }, [user, isLoading, isSuccess, isError, message, navigate, dispatch]);
 
   const changeHandler = (e) => {
     setFormData((prev) => {

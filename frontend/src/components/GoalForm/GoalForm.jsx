@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { reset } from "../../store/goalsSlice";
-import { getGoals, postGoal } from "../../store/goalsSlice";
+import { useDispatch } from "react-redux";
+import { postGoal } from "../../store/goalsSlice";
 
 const GoalForm = () => {
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
-
-  
 
   const submitHandler = (e) => {
     console.log("ho");
@@ -17,7 +13,7 @@ const GoalForm = () => {
     dispatch(postGoal(text));
     setText("");
   };
-  
+
   return (
     <section>
       <form

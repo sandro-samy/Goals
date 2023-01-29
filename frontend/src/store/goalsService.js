@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = "/api/goals";
+// const url = "/api/goals";
+const url = "https://goals.up.railway.app/api/goals";
 
 const accessToken = () => JSON.parse(localStorage.getItem("user"))?.token || "";
 

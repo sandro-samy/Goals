@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = "/api/users/";
+// const URL = "/api/users/";
+const URL = "https://goals.up.railway.app/api/users/";
 
 // register service
 const register = async (userData) => {

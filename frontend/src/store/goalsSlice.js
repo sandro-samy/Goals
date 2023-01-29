@@ -43,7 +43,7 @@ export const updateGoal = createAsyncThunk(
   async (data, thunkAPI) => {
     const { id, text } = data;
     try {
-      return await goalsService.updateGoal(id, data);
+      return await goalsService.updateGoal(id, text);
     } catch (error) {
       const message =
         error?.response?.data?.message || error.message || error.toString();

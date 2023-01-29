@@ -35,7 +35,7 @@ const Register = () => {
     ) {
       setIsValidInputs(true);
     }
-  }, [, name, email, password, comfirmPassword, setIsValidInputs]);
+  }, [name, email, password, comfirmPassword, setIsValidInputs]);
 
   useEffect(() => {
     if (isError) {
@@ -45,7 +45,7 @@ const Register = () => {
       navigate("/");
     }
     dispatch(reset());
-  }, [user, isLoading, isSuccess, isError, message, navigator, dispatch]);
+  }, [user, isLoading, isSuccess, isError, message, navigate, dispatch]);
 
   const changeHandler = (e) => {
     setFormData((prev) => {
