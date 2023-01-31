@@ -13,7 +13,7 @@ const GoalItem = ({ goal }) => {
       {goal ? (
         <div className="goal">
           {goal?.createdAt ? (
-            <div>{JSON.stringify(goal?.createdAt?.substring(0, 10))}</div>
+            <div>{JSON.stringify(goal?.createdAt).substring(0, 10)}</div>
           ) : (
             <></>
           )}
