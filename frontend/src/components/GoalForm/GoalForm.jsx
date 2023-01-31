@@ -8,7 +8,6 @@ const GoalForm = () => {
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
-    console.log("ho");
     e.preventDefault();
     dispatch(postGoal(text));
     setText("");

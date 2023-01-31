@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GoalForm from "../components/GoalForm/GoalForm";
 import GoalItem from "../components/GoalItem/GoalItem";
@@ -6,10 +6,20 @@ import Spinner from "../components/loader/Spinner";
 import { getGoals, reset } from "../store/goalsSlice";
 
 const Dashboard = () => {
+  const [goals, setGoals] = useState({});
   const { user } = useSelector((state) => state.auth);
-  const { goals, isLoading, isError, message } = useSelector(
-    (state) => state.goals
-  );
+  const {
+    goals: newGoals,
+    isLoading,
+    isError,
+    message,
+  } = useSelector((state) => state.goals);
+
+  useEffect(() => {
+    setGoals(newGoals);
+    console.log("new Goals" + JSON.stringify(newGoals));
+    console.log("goals" + JSON.stringify(goals));
+  }, [newGoals]);
 
   const dispatch = useDispatch();
   useEffect(() => {

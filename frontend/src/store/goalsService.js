@@ -15,26 +15,27 @@ const header = () => {
 
 // getGoals service
 const getGoals = async () => {
-  const { data } = await axios(url, header());
+  const { data } = await axios.get(url, header());
+  console.log(data);
   return data;
 };
 
 // postGoal
 const postGoal = async (text) => {
   const { data } = await axios.post(url, { text }, header());
-  return data;
+  return getGoals;
 };
 
 // update Goal Service
 const updateGoal = async (id, text) => {
   const { data } = await axios.update(url + "/" + id, { text }, header());
-  return data;
+  return getGoals;
 };
 
 // delete Goal Service
 const deleteGoal = async (id) => {
   const { data } = await axios.delete(url + "/" + id, header());
-  return data;
+  return getGoals;
 };
 
 const goalsService = {

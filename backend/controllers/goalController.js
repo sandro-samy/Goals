@@ -23,7 +23,8 @@ export const setGoal = asyncHandler(async (req, res) => {
     user: req.user.id,
     text: req.body.text,
   });
-  res.status(201).json(goal);
+  const goals = await Goal.find({});
+  res.status(201).json({ goal, goals });
 });
 
 // @desc   Put goal
@@ -59,7 +60,6 @@ export const updateGoal = asyncHandler(async (req, res) => {
 // @route  Delete /api/goals/:id
 // @access private
 export const deleteGoal = asyncHandler(async (req, res) => {
-
   if (!req.user) {
     res.status(401);
     throw new Error("User not found");
@@ -77,7 +77,8 @@ export const deleteGoal = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
   await goal.remove();
+  const goals = await Goal.find({});
   res
     .status(200)
-    .json({ message: `Goal ${req.params.id} deleted successfully` });
+    .json({ message: `Goal ${req.params.id} deleted successfully`, goals });
 });
