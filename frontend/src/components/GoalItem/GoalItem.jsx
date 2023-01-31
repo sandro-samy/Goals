@@ -9,13 +9,23 @@ const GoalItem = ({ goal }) => {
     dispatch(deleteGoal(id));
   };
   return (
-    <div className="goal">
-      <div>{goal?.createdAt?.substring(0,10)}</div>
-      <h2>{goal.text}</h2>
-      <button className="close" onClick={() => deleteHandler(goal._id)}>
-        X
-      </button>
-    </div>
+    <>
+      {goal ? (
+        <div className="goal">
+          {goal?.createdAt ? (
+            <div>{JSON.stringify(goal?.createdAt?.substring(0, 10))}</div>
+          ) : (
+            <></>
+          )}
+          <h2>{goal.text}</h2>
+          <button className="close" onClick={() => deleteHandler(goal._id)}>
+            X
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
