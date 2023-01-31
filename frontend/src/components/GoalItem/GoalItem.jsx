@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteGoal} from "../../store/goalsSlice";
+import { deleteGoal } from "../../store/goalsSlice";
 
 const GoalItem = ({ goal }) => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const GoalItem = ({ goal }) => {
   };
   return (
     <div className="goal">
-      <div>{new Date(goal.createdAt).toLocaleDateString("fr")}</div>
+      <div>{goal?.createdAt?.substring(0,10)}</div>
       <h2>{goal.text}</h2>
       <button className="close" onClick={() => deleteHandler(goal._id)}>
         X
